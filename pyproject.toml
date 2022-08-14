@@ -2,12 +2,13 @@
 name = "wirehousestore"
 version = "0.1.0"
 description = ""
-authors = ["who-man-tech <enes515254@gmail.com>"]
+authors = ["who-man-tech <wwho.mann.3@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
 Django = "^4.1"
 psycopg2-binary = "^2.9.3"
+djangorestframework = "^3.13.1"
 
 [tool.poetry.dev-dependencies]
 
