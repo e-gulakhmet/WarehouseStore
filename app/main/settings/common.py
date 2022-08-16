@@ -1,7 +1,8 @@
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-i3lr9!d1$^u@s^^82c!1@0e08uflhq@zzfrkhf&n3jx&mu@klr"
@@ -22,8 +23,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
 
     "rest_framework",
-
-    "store",
 ]
 
 MIDDLEWARE = [
@@ -34,6 +33,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "accounts.middlewares.AccountAuthMiddleware"
 ]
 
 ROOT_URLCONF = "main.urls"
@@ -63,8 +63,8 @@ DATABASES = {
         'NAME': 'main',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
-        'HOST': 'postgres,localhost',
-        'PORT': '5432',
+        'HOST': os.getenv('DB_HOST', 'postgres,localhost'),
+        'PORT': os.getenv('DB_PORT', 5432),
     }
 }
 
@@ -96,7 +96,3 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [],
-}
