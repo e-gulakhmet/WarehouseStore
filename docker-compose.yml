@@ -13,6 +13,7 @@ services:
   warehouse.1:
     build: .
     image: django_app
+    container_name: 'warehouse.1'
     command: python manage.py runserver 0.0.0.0:8000
     environment:
       DJANGO_SETTINGS_MODULE: main.settings.warehouse
@@ -40,6 +41,7 @@ services:
 
   store.1:
     image: django_app
+    container_name: 'store.1'
     command: python manage.py runserver 0.0.0.0:8000
     environment:
       DJANGO_SETTINGS_MODULE: main.settings.store
