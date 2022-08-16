@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "wirehousestore"
+name = "warehousestore"
 version = "0.1.0"
 description = ""
 authors = ["who-man-tech <wwho.mann.3@gmail.com>"]
