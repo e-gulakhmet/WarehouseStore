@@ -26,6 +26,5 @@ class OrdersSyncService:
                      account: Type[AccountBaseModel]) -> Response:
         response = requests.patch(f'{account.path}/{order.number}', data=serializer(order).data,
                                   headers={self.ACCOUNT_AUTH_HEADER: account.token})
-        print(response.status_code)
         response.raise_for_status()
         return response
