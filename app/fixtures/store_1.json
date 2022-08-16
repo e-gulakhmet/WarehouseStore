@@ -1,0 +1,12 @@
+[
+  {
+    "model": "store.warehouseaccount",
+    "pk": 1,
+    "fields": {
+      "token": "d748a3895e13e7ef4929dcb89c178dca62b1e181",
+      "name": "Warehouse 1",
+      "path": "http://warehouse.1:8000/warehouse/orders",
+      "created": "2022-04-16"
+    }
+  }
+]
