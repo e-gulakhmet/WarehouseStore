@@ -6,14 +6,13 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 RUN apt-get update -y && apt-get install -y netcat
+RUN pip install --upgrade pip && pip install poetry
 
 RUN mkdir /app
-
 COPY /app /app
 COPY pyproject.toml /app
 WORKDIR /app
 
-RUN pip install --upgrade pip && pip install poetry
 RUN poetry config virtualenvs.create false
 RUN poetry install --no-dev
 

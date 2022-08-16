@@ -1,5 +1,5 @@
 services:
-  postgres:
+  warehouse_postgres:
     image: postgres:14.4
     environment:
       POSTGRES_DB: main
@@ -8,14 +8,15 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - orders-manager-postgres:/var/lib/postgresql/data
+      - warehouse-postgres:/var/lib/postgresql/data
 
-  django:
+  warehouse.1:
     build: .
+    image: django_app
     command: python manage.py runserver 0.0.0.0:8000
     environment:
-      DJANGO_SETTINGS_MODULE: "main.settings"
-      DB_HOST: postgres
+      DJANGO_SETTINGS_MODULE: main.settings.warehouse
+      DB_HOST: warehouse_postgres
       DB_PORT: 5432
       WAITING_DATABASE: "true"
       MIGRATE: "true"
@@ -24,7 +25,35 @@ services:
     ports:
       - 8000:8000
     depends_on:
-      - postgres
+      - warehouse_postgres
+
+  store_postgres:
+    image: postgres:14.4
+    environment:
+      POSTGRES_DB: main
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 5433:5432
+    volumes:
+      - store-postgres:/var/lib/postgresql/data
+
+  store.1:
+    image: django_app
+    command: python manage.py runserver 0.0.0.0:8000
+    environment:
+      DJANGO_SETTINGS_MODULE: main.settings.store
+      DB_HOST: store_postgres
+      DB_PORT: 5432
+      WAITING_DATABASE: "true"
+      MIGRATE: "true"
+    volumes:
+      - ./app:/app
+    ports:
+      - 8001:8000
+    depends_on:
+      - store_postgres
 
 volumes:
-  orders-manager-postgres:
+  warehouse-postgres:
+  store-postgres:
